@@ -90,9 +90,9 @@ const ClearButton = styled.button`
   transition: all 0.2s ease;
 
   &:hover {
-    background: #f4f7fe;
-    color: ${(props) => props.theme.colors.danger};
-    border-color: ${(props) => props.theme.colors.danger}40;
+    background: #fff0f0;
+    color: #e53e3e;
+    border-color: rgba(229, 62, 62, 0.3);
   }
 `;
 
