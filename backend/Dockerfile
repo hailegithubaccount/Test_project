@@ -8,11 +8,8 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN ./node_modules/.bin/tsc
 
 EXPOSE 5000
 
-ENV PORT=5000
-ENV MONGO_URI=mongodb://mongo:27017/song_db
-
-CMD ["npm", "start"]
+CMD ["node", "dist/server.js"]
