@@ -284,16 +284,26 @@ const IconButton = styled.button<{ danger?: boolean }>`
   }
 `;
 
-export const SongList: React.FC = () => {
+interface SongListProps {
+  initialSearch?: string;
+}
+
+export const SongList: React.FC<SongListProps> = ({ initialSearch = '' }) => {
   const dispatch = useDispatch();
   const { songs, loading, stats, filters } = useSelector((state: RootState) => state.songs);
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
   const [genreFilter, setGenreFilter] = useState('');
 
   useEffect(() => {
     dispatch(fetchStatsStart());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (initialSearch !== undefined) {
+      setSearch(initialSearch);
+    }
+  }, [initialSearch]);
 
   if (loading) {
     return <div style={{ padding: '40px', color: '#666' }}>Loading...</div>;

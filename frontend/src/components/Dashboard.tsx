@@ -101,7 +101,11 @@ const GenrePill = styled.div`
   }
 `;
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onNavigateToSearch?: (searchTerm: string) => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
   const dispatch = useDispatch();
   const { stats, loading } = useSelector((state: RootState) => state.songs);
 
@@ -171,7 +175,13 @@ export const Dashboard: React.FC = () => {
       <SectionLabel>Artist Statistics</SectionLabel>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {stats.songsAndAlbumsPerArtist.map((a) => (
-          <div key={a.artist} style={{ padding: '12px', background: '#f9f9f9', border: '1px solid #e5e5e5', borderRadius: '6px', minWidth: '180px' }}>
+          <div 
+            key={a.artist} 
+            onClick={() => onNavigateToSearch && onNavigateToSearch(a.artist)}
+            style={{ padding: '12px', background: '#f9f9f9', border: '1px solid #e5e5e5', borderRadius: '6px', minWidth: '180px', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+            onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+          >
             <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', fontWeight: 600 }}>{a.artist}</h4>
             <p style={{ margin: 0, fontSize: '12px', color: '#666' }}>Songs: {a.songCount} | Albums: {a.albumCount}</p>
           </div>
@@ -181,7 +191,13 @@ export const Dashboard: React.FC = () => {
       <SectionLabel>Album Statistics</SectionLabel>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {stats.songsPerAlbum.map((a) => (
-          <div key={`${a.album}-${a.artist}`} style={{ padding: '12px', background: '#f9f9f9', border: '1px solid #e5e5e5', borderRadius: '6px', minWidth: '180px' }}>
+          <div 
+            key={`${a.album}-${a.artist}`} 
+            onClick={() => onNavigateToSearch && onNavigateToSearch(a.album)}
+            style={{ padding: '12px', background: '#f9f9f9', border: '1px solid #e5e5e5', borderRadius: '6px', minWidth: '180px', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+            onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+          >
             <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', fontWeight: 600 }}>{a.album}</h4>
             <p style={{ margin: 0, fontSize: '12px', color: '#666' }}>{a.artist}</p>
             <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#888' }}>Songs: {a.count}</p>

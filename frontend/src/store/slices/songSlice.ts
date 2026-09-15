@@ -1,5 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Song, SongFormData, StatisticsData, FilterState, NotificationState } from '../../types/song';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  Song,
+  SongFormData,
+  StatisticsData,
+  FilterState,
+  NotificationState,
+} from "../../types/song";
 
 interface SongState {
   songs: Song[];
@@ -15,10 +21,10 @@ interface SongState {
 }
 
 const initialFilters: FilterState = {
-  search: '',
-  genre: 'All',
-  artist: 'All',
-  album: 'All',
+  search: "",
+  genre: "All",
+  artist: "All",
+  album: "All",
 };
 
 const initialState: SongState = {
@@ -32,14 +38,14 @@ const initialState: SongState = {
   selectedSong: null,
   isModalOpen: false,
   notification: {
-    message: '',
-    type: 'info',
+    message: "",
+    type: "info",
     visible: false,
   },
 };
 
 const songSlice = createSlice({
-  name: 'songs',
+  name: "songs",
   initialState,
   reducers: {
     // Fetch Songs Actions
@@ -80,7 +86,7 @@ const songSlice = createSlice({
       state.songs.unshift(action.payload);
       state.notification = {
         message: `"${action.payload.title}" added successfully!`,
-        type: 'success',
+        type: "success",
         visible: true,
       };
     },
@@ -88,14 +94,17 @@ const songSlice = createSlice({
       state.submitting = false;
       state.error = action.payload;
       state.notification = {
-        message: action.payload || 'Failed to add song',
-        type: 'error',
+        message: action.payload || "Failed to add song",
+        type: "error",
         visible: true,
       };
     },
 
     // Update Song Actions
-    updateSongStart(state, _action: PayloadAction<{ id: string; songData: SongFormData }>) {
+    updateSongStart(
+      state,
+      _action: PayloadAction<{ id: string; songData: SongFormData }>,
+    ) {
       state.submitting = true;
       state.error = null;
     },
@@ -109,7 +118,7 @@ const songSlice = createSlice({
       }
       state.notification = {
         message: `"${action.payload.title}" updated successfully!`,
-        type: 'success',
+        type: "success",
         visible: true,
       };
     },
@@ -117,8 +126,8 @@ const songSlice = createSlice({
       state.submitting = false;
       state.error = action.payload;
       state.notification = {
-        message: action.payload || 'Failed to update song',
-        type: 'error',
+        message: action.payload || "Failed to update song",
+        type: "error",
         visible: true,
       };
     },
@@ -130,22 +139,17 @@ const songSlice = createSlice({
     deleteSongSuccess(state, action: PayloadAction<string>) {
       state.songs = state.songs.filter((s) => s._id !== action.payload);
       state.notification = {
-        message: 'Song removed successfully!',
-        type: 'success',
+        message: "Song removed successfully!",
+        type: "success",
         visible: true,
       };
     },
     deleteSongFailure(state, action: PayloadAction<string>) {
       state.notification = {
-        message: action.payload || 'Failed to delete song',
-        type: 'error',
+        message: action.payload || "Failed to delete song",
+        type: "error",
         visible: true,
       };
-    },
-
-    // Seed Data Actions
-    seedDatabaseStart(state) {
-      state.loading = true;
     },
 
     // Filter Reducers
@@ -193,7 +197,6 @@ export const {
   deleteSongStart,
   deleteSongSuccess,
   deleteSongFailure,
-  seedDatabaseStart,
   setFilters,
   resetFilters,
   openAddModal,

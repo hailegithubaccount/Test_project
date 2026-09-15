@@ -45,10 +45,16 @@ const MainContent = styled.main`
 export const App: React.FC = () => {
   const dispatch = useDispatch();
   const [activeView, setActiveView] = useState<'dashboard' | 'songs'>('dashboard');
+  const [initialSearch, setInitialSearch] = useState('');
 
   useEffect(() => {
     dispatch(fetchSongsStart());
   }, [dispatch]);
+
+  const handleNavigateToSearch = (searchTerm: string) => {
+    setInitialSearch(searchTerm);
+    setActiveView('songs');
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +62,11 @@ export const App: React.FC = () => {
         <Sidebar activeView={activeView} onViewChange={setActiveView} />
         <ContentWrapper>
           <MainContent>
-            {activeView === 'dashboard' ? <Dashboard /> : <SongList />}
+            {activeView === 'dashboard' ? (
+              <Dashboard onNavigateToSearch={handleNavigateToSearch} />
+            ) : (
+              <SongList initialSearch={initialSearch} />
+            )}
           </MainContent>
         </ContentWrapper>
         <SongModal />

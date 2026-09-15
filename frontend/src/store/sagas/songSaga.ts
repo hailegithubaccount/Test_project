@@ -16,7 +16,6 @@ import {
   deleteSongStart,
   deleteSongSuccess,
   deleteSongFailure,
-  seedDatabaseStart,
   setFilters,
   resetFilters,
 } from '../slices/songSlice';
@@ -110,7 +109,7 @@ export function* songSaga() {
   yield takeLatest(addSongStart.type, handleAddSong);
   yield takeLatest(updateSongStart.type, handleUpdateSong);
   yield takeLatest(deleteSongStart.type, handleDeleteSong);
-  yield takeLatest(seedDatabaseStart.type, handleSeedDatabase);
+ 
   // Refetch when filters change
   yield takeLatest([setFilters.type, resetFilters.type], handleFetchSongs);
 }
