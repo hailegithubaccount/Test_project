@@ -101,6 +101,27 @@ const GenrePill = styled.div`
   }
 `;
 
+const ClickableCard = styled.div`
+  padding: 12px;
+  background: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  min-width: 180px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+`;
+
 interface DashboardProps {
   onNavigateToSearch?: (searchTerm: string) => void;
 }
@@ -175,33 +196,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
       <SectionLabel>Artist Statistics</SectionLabel>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {stats.songsAndAlbumsPerArtist.map((a) => (
-          <div 
+          <ClickableCard 
             key={a.artist} 
             onClick={() => onNavigateToSearch && onNavigateToSearch(a.artist)}
-            style={{ padding: '12px', background: '#f9f9f9', border: '1px solid #e5e5e5', borderRadius: '6px', minWidth: '180px', cursor: 'pointer', transition: 'all 0.2s ease' }}
-            onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
-            onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
           >
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', fontWeight: 600 }}>{a.artist}</h4>
+            <h4>{a.artist}</h4>
             <p style={{ margin: 0, fontSize: '12px', color: '#666' }}>Songs: {a.songCount} | Albums: {a.albumCount}</p>
-          </div>
+          </ClickableCard>
         ))}
       </div>
 
       <SectionLabel>Album Statistics</SectionLabel>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {stats.songsPerAlbum.map((a) => (
-          <div 
+          <ClickableCard 
             key={`${a.album}-${a.artist}`} 
             onClick={() => onNavigateToSearch && onNavigateToSearch(a.album)}
-            style={{ padding: '12px', background: '#f9f9f9', border: '1px solid #e5e5e5', borderRadius: '6px', minWidth: '180px', cursor: 'pointer', transition: 'all 0.2s ease' }}
-            onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
-            onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
           >
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', fontWeight: 600 }}>{a.album}</h4>
+            <h4>{a.album}</h4>
             <p style={{ margin: 0, fontSize: '12px', color: '#666' }}>{a.artist}</p>
             <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#888' }}>Songs: {a.count}</p>
-          </div>
+          </ClickableCard>
         ))}
       </div>
     </div>
