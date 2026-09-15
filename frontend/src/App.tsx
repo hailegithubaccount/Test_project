@@ -15,6 +15,8 @@ const AppContainer = styled.div`
   background-color: #ffffff;
   color: #000000;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.3px;
+  font-stretch: condensed;
 `;
 
 const ContentWrapper = styled.div`
