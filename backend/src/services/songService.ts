@@ -1,5 +1,4 @@
 import { Song, ISong } from '../models/Song';
-import { initialSongs } from '../utils/seedData';
 
 export interface CreateSongDTO {
   title: string;
@@ -174,13 +173,5 @@ export class SongService {
       artistsList: distinctArtists.sort(),
       albumsList: distinctAlbums.sort()
     };
-  }
-
-  /**
-   * Reset and seed the database with initial sample songs
-   */
-  static async seedDatabase() {
-    await Song.deleteMany({});
-    return await Song.insertMany(initialSongs);
   }
 }

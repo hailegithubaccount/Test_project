@@ -98,17 +98,3 @@ export const getSongStats = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ message: error.message || 'Failed to fetch statistics' });
   }
 };
-
-// Seed database with sample data
-export const seedDatabase = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const insertedSongs = await SongService.seedDatabase();
-    res.status(201).json({
-      message: 'Database seeded successfully',
-      count: insertedSongs.length,
-      songs: insertedSongs,
-    });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to seed database' });
-  }
-};

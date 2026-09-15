@@ -6,14 +6,12 @@ import {
   updateSong,
   deleteSong,
   getSongStats,
-  seedDatabase
 } from '../controllers/songController';
 
 const router = Router();
 
-// Stats & Seeding routes (must come before /:id)
+// Stats route (must come before /:id)
 router.get('/stats', getSongStats);
-router.post('/seed', seedDatabase);
 
 // CRUD routes
 router.get('/', getSongs);
