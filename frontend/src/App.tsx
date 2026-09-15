@@ -8,7 +8,6 @@ import { Sidebar } from './components/Sidebar';
 import { SongList } from './components/SongList';
 import { SongModal } from './components/SongModal';
 import { Notification } from './components/Notification';
-import { PlaybackBar } from './components/PlaybackBar';
 
 const AppContainer = styled.div`
   display: flex;
@@ -58,7 +57,6 @@ export const App: React.FC = () => {
             <SongList />
           </MainContent>
         </ContentWrapper>
-        <PlaybackBar />
         <SongModal />
         <Notification />
       </AppContainer>
