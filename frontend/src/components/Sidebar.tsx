@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Home, Menu, X } from 'lucide-react';
+import { Home, Menu, X, BarChart2, Library } from 'lucide-react';
 
 // ── Overlay behind sidebar on mobile ────────────────────────────────────────
 const Overlay = styled.div<{ open: boolean }>`
@@ -78,30 +78,6 @@ const HeaderArea = styled.div`
   }
 `;
 
-const SearchBox = styled.div`
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 7px 12px;
-  margin: 0 12px 16px 12px;
-  gap: 8px;
-
-  input {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 13px;
-    width: 100%;
-    color: ${(props) => props.theme.colors.textPrimary};
-
-    &::placeholder {
-      color: ${(props) => props.theme.colors.textSecondary};
-    }
-  }
-`;
-
 const NavList = styled.nav`
   display: flex;
   flex-direction: column;
@@ -150,7 +126,6 @@ const NavItem = styled.div<{ active?: boolean }>`
   }
 `;
 
-// ── Hamburger button visible only on mobile ──────────────────────────────────
 export const HamburgerButton = styled.button`
   display: none;
   @media (max-width: 768px) {
@@ -167,20 +142,17 @@ export const HamburgerButton = styled.button`
 `;
 
 interface SidebarProps {
-  onToggle?: (open: boolean) => void;
+  activeView: 'dashboard' | 'songs';
+  onViewChange: (view: 'dashboard' | 'songs') => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = () => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {/* Overlay closes sidebar on mobile tap-outside */}
       <Overlay open={open} onClick={() => setOpen(false)} />
-
-      {/* Floating hamburger button for mobile */}
       <HamburgerButton
-        id="hamburger-btn"
         style={{
           position: 'fixed',
           top: '14px',
@@ -208,17 +180,21 @@ export const Sidebar: React.FC<SidebarProps> = () => {
           </button>
         </HeaderArea>
 
-        <SearchBox>
-          <input type="text" placeholder="Search" />
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-          </svg>
-        </SearchBox>
-
-        <NavList>
-          <NavItem active>
+        <NavList style={{ marginTop: '20px' }}>
+          <NavItem 
+            active={activeView === 'dashboard'} 
+            onClick={() => { onViewChange('dashboard'); setOpen(false); }}
+          >
             <div className="content">
-              <Home size={18} strokeWidth={2.5} /> Home
+              <BarChart2 size={18} strokeWidth={2.5} /> Dashboard
+            </div>
+          </NavItem>
+          <NavItem 
+            active={activeView === 'songs'} 
+            onClick={() => { onViewChange('songs'); setOpen(false); }}
+          >
+            <div className="content">
+              <Library size={18} strokeWidth={2.5} /> Library
             </div>
           </NavItem>
         </NavList>
@@ -226,3 +202,4 @@ export const Sidebar: React.FC<SidebarProps> = () => {
     </>
   );
 };
+

@@ -166,19 +166,26 @@ const GenreList = styled.div`
   margin-bottom: 32px;
 `;
 
-const GenrePill = styled.div`
+const GenrePill = styled.div<{ active?: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f3f3f3;
-  border: 1px solid rgba(0,0,0,0.08);
+  background: ${(props) => (props.active ? '#f97316' : '#f3f3f3')};
+  color: ${(props) => (props.active ? '#fff' : '#000')};
+  border: 1px solid ${(props) => (props.active ? '#f97316' : 'rgba(0,0,0,0.08)')};
   border-radius: 4px;
   padding: 6px 14px;
   font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${(props) => (props.active ? '#ea580c' : '#e8e8e8')};
+  }
 
   .count {
-    background: #f97316;
-    color: #fff;
+    background: ${(props) => (props.active ? '#fff' : '#f97316')};
+    color: ${(props) => (props.active ? '#f97316' : '#fff')};
     padding: 1px 7px;
     border-radius: 99px;
     font-size: 11px;
@@ -310,7 +317,7 @@ export const SongList: React.FC = () => {
     <div>
       {/* ── Topbar ─────────────────────────────────────── */}
       <Topbar>
-        <h2>Home</h2>
+        <h2>Library</h2>
         <div className="right">
           <SearchBar>
             <Search size={14} color="#666" />
@@ -333,61 +340,6 @@ export const SongList: React.FC = () => {
           </AddButton>
         </div>
       </Topbar>
-
-      {/* ── Statistics Strip ────────────────────────────── */}
-      {stats && (
-        <>
-          <StatsStrip>
-            <StatCard>
-              <div className="icon" style={{ background: 'rgba(249,115,22,0.1)' }}>
-                <Music size={22} color="#f97316" />
-              </div>
-              <div className="info">
-                <h3>{stats.totals.totalSongs}</h3>
-                <p>Total Songs</p>
-              </div>
-            </StatCard>
-            <StatCard>
-              <div className="icon" style={{ background: 'rgba(59,130,246,0.1)' }}>
-                <Users size={22} color="#3b82f6" />
-              </div>
-              <div className="info">
-                <h3>{stats.totals.totalArtists}</h3>
-                <p>Artists</p>
-              </div>
-            </StatCard>
-            <StatCard>
-              <div className="icon" style={{ background: 'rgba(16,185,129,0.1)' }}>
-                <Disc size={22} color="#10b981" />
-              </div>
-              <div className="info">
-                <h3>{stats.totals.totalAlbums}</h3>
-                <p>Albums</p>
-              </div>
-            </StatCard>
-            <StatCard>
-              <div className="icon" style={{ background: 'rgba(139,92,246,0.1)' }}>
-                <Tag size={22} color="#8b5cf6" />
-              </div>
-              <div className="info">
-                <h3>{stats.totals.totalGenres}</h3>
-                <p>Genres</p>
-              </div>
-            </StatCard>
-          </StatsStrip>
-
-          {/* ── Genre Breakdown ─────────────────────────── */}
-          <SectionLabel>Songs by Genre</SectionLabel>
-          <GenreList>
-            {stats.songsPerGenre.map((g) => (
-              <GenrePill key={g.genre}>
-                {g.genre}
-                <span className="count">{g.count}</span>
-              </GenrePill>
-            ))}
-          </GenreList>
-        </>
-      )}
 
       {/* ── Song Grid ───────────────────────────────────── */}
       <SectionLabel>

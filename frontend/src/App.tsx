@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import { useDispatch } from 'react-redux';
@@ -6,6 +6,7 @@ import { theme } from './theme';
 import { fetchSongsStart } from './store/slices/songSlice';
 import { Sidebar } from './components/Sidebar';
 import { SongList } from './components/SongList';
+import { Dashboard } from './components/Dashboard';
 import { SongModal } from './components/SongModal';
 import { Notification } from './components/Notification';
 
@@ -15,8 +16,6 @@ const AppContainer = styled.div`
   background-color: #ffffff;
   color: #000000;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  letter-spacing: -0.3px;
-  font-stretch: condensed;
 `;
 
 const ContentWrapper = styled.div`
@@ -45,6 +44,7 @@ const MainContent = styled.main`
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
+  const [activeView, setActiveView] = useState<'dashboard' | 'songs'>('dashboard');
 
   useEffect(() => {
     dispatch(fetchSongsStart());
@@ -53,10 +53,10 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
-        <Sidebar />
+        <Sidebar activeView={activeView} onViewChange={setActiveView} />
         <ContentWrapper>
           <MainContent>
-            <SongList />
+            {activeView === 'dashboard' ? <Dashboard /> : <SongList />}
           </MainContent>
         </ContentWrapper>
         <SongModal />

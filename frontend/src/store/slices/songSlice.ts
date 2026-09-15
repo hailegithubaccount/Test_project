@@ -125,10 +125,9 @@ const songSlice = createSlice({
 
     // Delete Song Actions
     deleteSongStart(state, _action: PayloadAction<string>) {
-      state.loading = true;
+      // Don't set loading=true here to avoid unmounting the whole grid!
     },
     deleteSongSuccess(state, action: PayloadAction<string>) {
-      state.loading = false;
       state.songs = state.songs.filter((s) => s._id !== action.payload);
       state.notification = {
         message: 'Song removed successfully!',
@@ -137,7 +136,6 @@ const songSlice = createSlice({
       };
     },
     deleteSongFailure(state, action: PayloadAction<string>) {
-      state.loading = false;
       state.notification = {
         message: action.payload || 'Failed to delete song',
         type: 'error',
