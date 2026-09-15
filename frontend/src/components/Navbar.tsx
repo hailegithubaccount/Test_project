@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { seedDatabaseStart, openAddModal } from '../store/slices/songSlice';
+import { openAddModal } from '../store/slices/songSlice';
 import { Music, Plus, Database, Sparkles, BarChart2 } from 'lucide-react';
 
 const Header = styled.header`
