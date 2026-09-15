@@ -22,9 +22,7 @@ export interface SongFilters {
 }
 
 export class SongService {
-  /**
-   * Create a new song document in database
-   */
+ 
   static async createSong(data: CreateSongDTO): Promise<ISong> {
     return await Song.create({
       title: data.title.trim(),
@@ -34,9 +32,7 @@ export class SongService {
     });
   }
 
-  /**
-   * Fetch songs matching optional query filters and search keyword
-   */
+  
   static async getSongs(filters: SongFilters): Promise<ISong[]> {
     const query: any = {};
 
@@ -65,16 +61,12 @@ export class SongService {
     return await Song.find(query).sort({ createdAt: -1 });
   }
 
-  /**
-   * Fetch a single song by MongoDB ObjectId
-   */
+
   static async getSongById(id: string): Promise<ISong | null> {
     return await Song.findById(id);
   }
 
-  /**
-   * Update song details by ID
-   */
+  
   static async updateSong(id: string, data: UpdateSongDTO): Promise<ISong | null> {
     const song = await Song.findById(id);
     if (!song) return null;
@@ -87,9 +79,7 @@ export class SongService {
     return await song.save();
   }
 
-  /**
-   * Delete a song by ID
-   */
+  
   static async deleteSong(id: string): Promise<ISong | null> {
     return await Song.findByIdAndDelete(id);
   }

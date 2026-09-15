@@ -201,7 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
             </div>
-            <h1>Media Player</h1>
+            <h1>SONG CRUD</h1>
           </div>
           <button className="close-btn" onClick={() => setOpen(false)}>
             <X size={18} />
