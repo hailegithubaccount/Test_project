@@ -18,15 +18,16 @@ const AppContainer = styled.div`
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{ collapsed: boolean }>`
   flex: 1;
-  margin-left: 220px; /* Width of sidebar on desktop */
+  margin-left: ${(props) => (props.collapsed ? '70px' : '220px')};
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media (max-width: 768px) {
-    margin-left: 0; /* Full width on mobile */
+    margin-left: 0;
   }
 `;
 
@@ -46,6 +47,7 @@ export const App: React.FC = () => {
   const dispatch = useDispatch();
   const [activeView, setActiveView] = useState<'dashboard' | 'songs'>('dashboard');
   const [initialSearch, setInitialSearch] = useState('');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     dispatch(fetchSongsStart());
@@ -59,13 +61,24 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
-        <Sidebar activeView={activeView} onViewChange={setActiveView} />
-        <ContentWrapper>
+        <Sidebar
+          activeView={activeView}
+          onViewChange={setActiveView}
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={() => setSidebarCollapsed((prev) => !prev)}
+        />
+        <ContentWrapper collapsed={sidebarCollapsed}>
           <MainContent>
             {activeView === 'dashboard' ? (
               <Dashboard onNavigateToSearch={handleNavigateToSearch} />
             ) : (
-              <SongList initialSearch={initialSearch} />
+              <SongList
+                initialSearch={initialSearch}
+                onBackToDashboard={() => {
+                  setInitialSearch('');
+                  setActiveView('dashboard');
+                }}
+              />
             )}
           </MainContent>
         </ContentWrapper>

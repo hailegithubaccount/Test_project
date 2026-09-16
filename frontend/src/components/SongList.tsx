@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { deleteSongStart, openEditModal, openAddModal, fetchStatsStart, setFilters } from '../store/slices/songSlice';
 import { Song } from '../types/song';
-import { Music, Edit3, Trash2, Plus, Search, Users, Disc, Tag, TrendingUp, LayoutGrid, List } from 'lucide-react';
+import { Music, Edit3, Trash2, Plus, Search, Users, Disc, Tag, TrendingUp, LayoutGrid, List, ArrowLeft } from 'lucide-react';
 
 // ── Topbar ──────────────────────────────────────────────────────────────────
 const Topbar = styled.div`
@@ -38,6 +38,28 @@ const Topbar = styled.div`
     .right {
       flex-direction: column;
     }
+  }
+`;
+
+const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #f3f3f3;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f97316;
+    color: #ffffff;
+    border-color: #f97316;
+    transform: translateX(-2px);
   }
 `;
 
@@ -140,11 +162,11 @@ const SectionLabel = styled.h3`
 // ── Media Grid ───────────────────────────────────────────────────────────────
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
 
   @media (max-width: 600px) {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 14px;
   }
 
@@ -203,6 +225,7 @@ const MediaCard = styled.div`
     right: 6px;
     display: none;
     gap: 4px;
+    z-index: 2;
   }
 
   &:hover .actions {
@@ -372,9 +395,10 @@ const IconButton = styled.button<{ danger?: boolean }>`
 
 interface SongListProps {
   initialSearch?: string;
+  onBackToDashboard?: () => void;
 }
 
-export const SongList: React.FC<SongListProps> = ({ initialSearch = '' }) => {
+export const SongList: React.FC<SongListProps> = ({ initialSearch = '', onBackToDashboard }) => {
   const dispatch = useDispatch();
   const { songs, loading, stats } = useSelector((state: RootState) => state.songs);
 
@@ -414,7 +438,14 @@ export const SongList: React.FC<SongListProps> = ({ initialSearch = '' }) => {
     <div>
       {/* ── Topbar ─────────────────────────────────────── */}
       <Topbar>
-        <h2>Library</h2>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {onBackToDashboard && (
+            <BackButton onClick={onBackToDashboard} title="Back to Dashboard">
+              <ArrowLeft size={16} /> Back
+            </BackButton>
+          )}
+          <h2>Library</h2>
+        </div>
         <div className="right">
           <SearchBar>
             <Search size={14} color="#666" />

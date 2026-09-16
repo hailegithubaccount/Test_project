@@ -30,7 +30,7 @@ const StatsStrip = styled.div`
 
 const StatCard = styled.div`
   background: #f9f9f9;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 8px;
   padding: 20px;
   display: flex;
@@ -41,10 +41,12 @@ const StatCard = styled.div`
     width: 44px;
     height: 44px;
     border-radius: 8px;
+    background: rgba(249, 115, 22, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: #f97316;
   }
 
   .info {
@@ -52,11 +54,12 @@ const StatCard = styled.div`
       margin: 0;
       font-size: 24px;
       font-weight: 700;
+      color: #000000;
     }
     p {
       margin: 2px 0 0 0;
       font-size: 12px;
-      color: #666;
+      color: #666666;
     }
   }
 `;
@@ -146,7 +149,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
 
       <StatsStrip>
         <StatCard>
-          <div className="icon" style={{ background: 'rgba(249,115,22,0.1)' }}>
+          <div className="icon">
             <Music size={22} color="#f97316" />
           </div>
           <div className="info">
@@ -155,8 +158,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
           </div>
         </StatCard>
         <StatCard>
-          <div className="icon" style={{ background: 'rgba(59,130,246,0.1)' }}>
-            <Users size={22} color="#3b82f6" />
+          <div className="icon">
+            <Users size={22} color="#f97316" />
           </div>
           <div className="info">
             <h3>{stats.totals.totalArtists}</h3>
@@ -164,8 +167,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
           </div>
         </StatCard>
         <StatCard>
-          <div className="icon" style={{ background: 'rgba(16,185,129,0.1)' }}>
-            <Disc size={22} color="#10b981" />
+          <div className="icon">
+            <Disc size={22} color="#f97316" />
           </div>
           <div className="info">
             <h3>{stats.totals.totalAlbums}</h3>
@@ -173,8 +176,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
           </div>
         </StatCard>
         <StatCard>
-          <div className="icon" style={{ background: 'rgba(139,92,246,0.1)' }}>
-            <Tag size={22} color="#8b5cf6" />
+          <div className="icon">
+            <Tag size={22} color="#f97316" />
           </div>
           <div className="info">
             <h3>{stats.totals.totalGenres}</h3>
@@ -196,8 +199,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
       <SectionLabel>Artist Statistics</SectionLabel>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {stats.songsAndAlbumsPerArtist.map((a) => (
-          <ClickableCard 
-            key={a.artist} 
+          <ClickableCard
+            key={a.artist}
             onClick={() => onNavigateToSearch && onNavigateToSearch(a.artist)}
           >
             <h4>{a.artist}</h4>
@@ -209,8 +212,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToSearch }) => {
       <SectionLabel>Album Statistics</SectionLabel>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {stats.songsPerAlbum.map((a) => (
-          <ClickableCard 
-            key={`${a.album}-${a.artist}`} 
+          <ClickableCard
+            key={`${a.album}-${a.artist}`}
             onClick={() => onNavigateToSearch && onNavigateToSearch(a.album)}
           >
             <h4>{a.album}</h4>

@@ -37,14 +37,15 @@ const MetricHeader = styled.div`
 `;
 
 const IconWrapper = styled.div<{ bg: string; color: string }>`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   background: ${(props) => props.bg};
-  color: ${(props) => props.color};
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 14px ${(props) => props.color}40;
 `;
 
 const ValueArea = styled.div`
@@ -115,8 +116,8 @@ export const StatsOverview: React.FC = () => {
     <StatsContainer id="home">
       <MetricCard>
         <MetricHeader>
-          <IconWrapper bg="rgba(67, 24, 255, 0.1)" color="#4318ff">
-            <Music size={24} />
+          <IconWrapper bg="linear-gradient(135deg, #f97316 0%, #ea580c 100%)" color="#f97316">
+            <Music size={22} strokeWidth={2.2} />
           </IconWrapper>
           <PercentageArea positive>↑ 12%</PercentageArea>
         </MetricHeader>
@@ -124,13 +125,13 @@ export const StatsOverview: React.FC = () => {
           <h2>{stats.totals.totalSongs}</h2>
           <p>Total Songs</p>
         </ValueArea>
-        <MockGraph color="#4318ff" />
+        <MockGraph color="#f97316" />
       </MetricCard>
 
       <MetricCard>
         <MetricHeader>
-          <IconWrapper bg="rgba(5, 205, 153, 0.1)" color="#05cd99">
-            <Mic2 size={24} />
+          <IconWrapper bg="linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" color="#3b82f6">
+            <Mic2 size={22} strokeWidth={2.2} />
           </IconWrapper>
           <PercentageArea positive>↑ 8%</PercentageArea>
         </MetricHeader>
@@ -138,13 +139,13 @@ export const StatsOverview: React.FC = () => {
           <h2>{stats.totals.totalArtists}</h2>
           <p>Artists</p>
         </ValueArea>
-        <MockGraph color="#05cd99" />
+        <MockGraph color="#3b82f6" />
       </MetricCard>
 
       <MetricCard>
         <MetricHeader>
-          <IconWrapper bg="rgba(238, 93, 80, 0.1)" color="#ee5d50">
-            <Disc size={24} />
+          <IconWrapper bg="linear-gradient(135deg, #10b981 0%, #047857 100%)" color="#10b981">
+            <Disc size={22} strokeWidth={2.2} />
           </IconWrapper>
           <PercentageArea positive>↑ 15%</PercentageArea>
         </MetricHeader>
@@ -152,13 +153,13 @@ export const StatsOverview: React.FC = () => {
           <h2>{stats.totals.totalAlbums}</h2>
           <p>Albums</p>
         </ValueArea>
-        <MockGraph color="#ee5d50" />
+        <MockGraph color="#10b981" />
       </MetricCard>
 
       <MetricCard>
         <MetricHeader>
-          <IconWrapper bg="rgba(255, 181, 71, 0.1)" color="#ffb547">
-            <Tag size={24} />
+          <IconWrapper bg="linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)" color="#8b5cf6">
+            <Tag size={22} strokeWidth={2.2} />
           </IconWrapper>
           <PercentageArea positive>↑ 5%</PercentageArea>
         </MetricHeader>
@@ -166,7 +167,7 @@ export const StatsOverview: React.FC = () => {
           <h2>{stats.totals.totalGenres}</h2>
           <p>Genres</p>
         </ValueArea>
-        <MockGraph color="#ffb547" />
+        <MockGraph color="#8b5cf6" />
       </MetricCard>
     </StatsContainer>
   );
