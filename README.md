@@ -66,20 +66,7 @@ full_stack_test/
 
 ---
 
-## 🐳 Running with Docker Compose (Recommended)
 
-To run the entire full-stack application (MongoDB + Express Backend + React Frontend):
-
-```bash
-docker-compose up --build
-```
-
-Access the application in your browser:
-- **Frontend App**: `http://localhost:3000`
-- **Backend REST API**: `http://localhost:5000/api/songs`
-- **MongoDB**: `mongodb://localhost:27017/song_db`
-
----
 
 ## 💻 Running Locally (Development Mode)
 
